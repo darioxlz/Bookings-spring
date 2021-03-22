@@ -9,16 +9,17 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(BookingPK bookingId, LocalDateTime startTime, Integer slots, Facility facility, Member member) {
-        this.bookingId = bookingId;
+    public Booking(LocalDateTime startTime, Integer slots, Facility facility, Member member) {
         this.startTime = startTime;
         this.slots = slots;
         this.facility = facility;
         this.member = member;
     }
 
-    @EmbeddedId
-    private BookingPK bookingId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "bookid")
+    private Integer bookingId;
 
     @Column(name = "starttime", nullable = false)
     private LocalDateTime startTime;
@@ -27,20 +28,18 @@ public class Booking {
     private Integer slots;
 
     @ManyToOne
-    @MapsId("facilityId")
-    @JoinColumn(name = "facid", insertable = false, updatable = false)
+    @JoinColumn(name = "facid", nullable = false, insertable = false, updatable = false)
     private Facility facility;
 
     @ManyToOne
-    @MapsId("memberId")
-    @JoinColumn(name = "memid", insertable = false, updatable = false)
+    @JoinColumn(name = "memid", nullable = false, insertable = false, updatable = false)
     private Member member;
 
-    public BookingPK getBookingId() {
+    public Integer getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(BookingPK bookingId) {
+    public void setBookingId(Integer bookingId) {
         this.bookingId = bookingId;
     }
 

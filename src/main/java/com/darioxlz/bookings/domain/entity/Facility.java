@@ -9,11 +9,11 @@ public class Facility {
     public Facility() {
     }
 
-    public Facility(String name, Double memberCost, Double guestCost, Double initiaOutlay, Double monthlyMaintenance) {
+    public Facility(String name, Double memberCost, Double guestCost, Double initialOutlay, Double monthlyMaintenance) {
         this.name = name;
         this.memberCost = memberCost;
         this.guestCost = guestCost;
-        this.initiaOutlay = initiaOutlay;
+        this.initialOutlay = initialOutlay;
         this.monthlyMaintenance = monthlyMaintenance;
     }
 
@@ -32,7 +32,7 @@ public class Facility {
     private Double guestCost;
 
     @Column(name = "initialoutlay", nullable = false)
-    private Double initiaOutlay;
+    private Double initialOutlay;
 
     @Column(name = "monthlymaintenance", nullable = false)
     private Double monthlyMaintenance;
@@ -72,12 +72,12 @@ public class Facility {
         this.guestCost = guestCost;
     }
 
-    public Double getInitiaOutlay() {
-        return initiaOutlay;
+    public Double getInitialOutlay() {
+        return initialOutlay;
     }
 
-    public void setInitiaOutlay(Double initiaOutlay) {
-        this.initiaOutlay = initiaOutlay;
+    public void setInitialOutlay(Double initiaOutlay) {
+        this.initialOutlay = initiaOutlay;
     }
 
     public Double getMonthlyMaintenance() {
