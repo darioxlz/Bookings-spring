@@ -23,8 +23,6 @@ public class MemberRequestDTO {
     private String address;
 
     // TODO implement my own annotation
-    @NotNull(message = "The member zipcode cannot be null.")
-    @NotBlank(message = "The member zipcode cannot be blank.")
     @Positive(message = "The member zipcode must be a positive integer")
     private Integer zipcode;
 
