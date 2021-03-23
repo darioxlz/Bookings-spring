@@ -5,9 +5,9 @@ public class FacilityResponseDTO {
 
     private String name;
 
-    private Double guestcost;
-
     private Double membercost;
+
+    private Double guestcost;
 
     private Double initialoutlay;
 
@@ -29,20 +29,20 @@ public class FacilityResponseDTO {
         this.name = name;
     }
 
-    public Double getGuestcost() {
-        return guestcost;
-    }
-
-    public void setGuestcost(Double guestcost) {
-        this.guestcost = guestcost;
-    }
-
     public Double getMembercost() {
         return membercost;
     }
 
     public void setMembercost(Double membercost) {
         this.membercost = membercost;
+    }
+
+    public Double getGuestcost() {
+        return guestcost;
+    }
+
+    public void setGuestcost(Double guestcost) {
+        this.guestcost = guestcost;
     }
 
     public Double getInitialoutlay() {

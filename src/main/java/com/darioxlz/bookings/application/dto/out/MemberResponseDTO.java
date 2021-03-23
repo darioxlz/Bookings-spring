@@ -1,11 +1,5 @@
 package com.darioxlz.bookings.application.dto.out;
 
-import com.darioxlz.bookings.domain.entity.Member;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class MemberResponseDTO {
@@ -21,7 +15,7 @@ public class MemberResponseDTO {
 
     private String telephone;
 
-    private Member recommendedby;
+    private Integer recommendedby;
 
     private LocalDateTime joindate;
 
@@ -73,11 +67,11 @@ public class MemberResponseDTO {
         this.telephone = telephone;
     }
 
-    public Member getRecommendedby() {
+    public Integer getRecommendedby() {
         return recommendedby;
     }
 
-    public void setRecommendedby(Member recommendedby) {
+    public void setRecommendedby(Integer recommendedby) {
         this.recommendedby = recommendedby;
     }
 

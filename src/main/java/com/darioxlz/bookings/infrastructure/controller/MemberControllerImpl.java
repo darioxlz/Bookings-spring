@@ -31,7 +31,7 @@ public class MemberControllerImpl implements IMemberController {
     @GetMapping("/{id}")
     @Override
     public ResponseEntity<MemberResponseDTO> findById(@PathVariable("id") int id) {
-        return service.findById(id).map(member -> new ResponseEntity<>(member, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return service.findById2(id).map(member -> new ResponseEntity<>(member, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/")
