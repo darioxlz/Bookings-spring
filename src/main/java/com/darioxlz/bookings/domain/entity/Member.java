@@ -10,15 +10,6 @@ public class Member {
     public Member() {
     }
 
-    public Member(String surname, String firstname, String address, Integer zipcode, String telephone, LocalDateTime joinDate) {
-        this.surname = surname;
-        this.firstname = firstname;
-        this.address = address;
-        this.zipcode = zipcode;
-        this.telephone = telephone;
-        this.joinDate = joinDate;
-    }
-
     public Member(String surname, String firstname, String address, Integer zipcode, String telephone, Member recommendedBy, LocalDateTime joinDate) {
         this.surname = surname;
         this.firstname = firstname;

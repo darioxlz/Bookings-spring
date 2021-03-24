@@ -27,6 +27,12 @@ public class Booking {
     @Column(name = "slots", nullable = false)
     private Integer slots;
 
+    @Column(name = "memid")
+    private Integer memberId;
+
+    @Column(name = "facid")
+    private Integer facilityId;
+
     @ManyToOne
     @JoinColumn(name = "facid", nullable = false, insertable = false, updatable = false)
     private Facility facility;
@@ -73,6 +79,22 @@ public class Booking {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public Integer getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(Integer memberId) {
+        this.memberId = memberId;
+    }
+
+    public Integer getFacilityId() {
+        return facilityId;
+    }
+
+    public void setFacilityId(Integer facilityId) {
+        this.facilityId = facilityId;
     }
 
     @Override

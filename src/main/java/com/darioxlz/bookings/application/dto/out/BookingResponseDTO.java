@@ -17,8 +17,8 @@ public class BookingResponseDTO {
     public static BookingResponseDTO toDTO(Booking booking) {
         BookingResponseDTO dto = new BookingResponseDTO();
 
-        dto.setMemid(booking.getMember().getMemberId());
-        dto.setFacid(booking.getFacility().getFacilityId());
+        dto.setMemid(booking.getMemberId());
+        dto.setFacid(booking.getFacilityId());
         dto.setSlots(booking.getSlots());
         dto.setStarttime(booking.getStartTime());
 
