@@ -1,5 +1,8 @@
 package com.darioxlz.bookings.application.dto.out;
 
+import com.darioxlz.bookings.application.dto.in.FacilityRequestDTO;
+import com.darioxlz.bookings.domain.entity.Facility;
+
 public class FacilityResponseDTO {
     private Integer facid;
 
@@ -12,6 +15,31 @@ public class FacilityResponseDTO {
     private Double initialoutlay;
 
     private Double monthlymaintenance;
+
+    public static FacilityResponseDTO toDTO(Facility facility) {
+        FacilityResponseDTO dto = new FacilityResponseDTO();
+
+        dto.setFacid(facility.getFacilityId());
+        dto.setName(facility.getName());
+        dto.setGuestcost(facility.getGuestCost());
+        dto.setMembercost(facility.getMemberCost());
+        dto.setMonthlymaintenance(facility.getMonthlyMaintenance());
+        dto.setInitialoutlay(facility.getInitialOutlay());
+
+        return dto;
+    }
+
+    public static Facility toFacility(FacilityRequestDTO dto) {
+        Facility facility = new Facility();
+
+        facility.setName(dto.getName());
+        facility.setGuestCost(dto.getGuestcost());
+        facility.setMemberCost(dto.getMembercost());
+        facility.setMonthlyMaintenance(dto.getMonthlymaintenance());
+        facility.setInitialOutlay(dto.getInitialoutlay());
+
+        return facility;
+    }
 
     public Integer getFacid() {
         return facid;

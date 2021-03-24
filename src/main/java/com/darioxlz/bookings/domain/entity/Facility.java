@@ -95,4 +95,17 @@ public class Facility {
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
+
+    @Override
+    public String toString() {
+        return "Facility{" +
+                "facilityId=" + facilityId +
+                ", name='" + name + '\'' +
+                ", memberCost=" + memberCost +
+                ", guestCost=" + guestCost +
+                ", initialOutlay=" + initialOutlay +
+                ", monthlyMaintenance=" + monthlyMaintenance +
+                ", bookings=" + bookings +
+                '}';
+    }
 }

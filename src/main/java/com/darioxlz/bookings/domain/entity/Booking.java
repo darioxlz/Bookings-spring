@@ -74,4 +74,15 @@ public class Booking {
     public void setMember(Member member) {
         this.member = member;
     }
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingId=" + bookingId +
+                ", startTime=" + startTime +
+                ", slots=" + slots +
+                ", facility=" + facility +
+                ", member=" + member +
+                '}';
+    }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MemberServiceImpl implements IMemberService {
@@ -23,41 +24,17 @@ public class MemberServiceImpl implements IMemberService {
 
     @Override
     public List<MemberResponseDTO> find() {
-        List<MemberResponseDTO> members = (List<MemberResponseDTO>) repository.find().stream().map(member -> {
-            MemberResponseDTO dto = new MemberResponseDTO();
+        List<Member> members = repository.find();
 
-            dto.setMemid(member.getMemberId());
-            dto.setSurname(member.getSurname());
-            dto.setFirstname(member.getFirstname());
-            dto.setAddress(member.getAddress());
-            dto.setZipcode(member.getZipcode());
-            dto.setTelephone(member.getTelephone());
-            dto.setJoindate(member.getJoinDate());
-
-            return dto;
-        });
-
-        return members;
+        return members.stream().map(MemberResponseDTO::toDto).collect(Collectors.toList());
     }
 
     @Override
     public Optional<MemberResponseDTO> findById(int memid) {
-        MemberResponseDTO response = new MemberResponseDTO();
         Optional<Member> member = repository.findByID(memid);
 
         if (member.isPresent()) {
-            response.setMemid(member.get().getMemberId());
-            response.setSurname(member.get().getSurname());
-            response.setFirstname(member.get().getFirstname());
-            response.setAddress(member.get().getAddress());
-            response.setZipcode(member.get().getZipcode());
-            response.setTelephone(member.get().getTelephone());
-
-            if (member.get().getRecommendedBy() != null) {
-                response.setRecommendedby(member.get().getRecommendedBy().getMemberId());
-            } else {
-                response.setRecommendedby(null);
-            }
+            MemberResponseDTO response = MemberResponseDTO.toDto(member.get());
 
             return Optional.of(response);
         } else {
@@ -67,14 +44,8 @@ public class MemberServiceImpl implements IMemberService {
 
     @Override
     public MemberResponseDTO save(MemberRequestDTO dto) {
-        Member member = new Member();
+        Member member = MemberResponseDTO.toMember(dto);
         boolean recomended = false;
-
-        member.setSurname(dto.getSurname());
-        member.setFirstname(dto.getFirstname());
-        member.setAddress(dto.getAddress());
-        member.setZipcode(dto.getZipcode());
-        member.setTelephone(dto.getTelephone());
 
         if (dto.getRecommendedby() != null) {
             Optional<Member> recommender = repository.findByID(dto.getRecommendedby());
@@ -85,25 +56,9 @@ public class MemberServiceImpl implements IMemberService {
             }
         }
 
-        LocalDateTime fecha = LocalDateTime.now();
-        member.setJoinDate(fecha);
-
 
         member = repository.save(member);
 
-        MemberResponseDTO response = new MemberResponseDTO();
-        response.setMemid(member.getMemberId());
-        response.setSurname(member.getSurname());
-        response.setFirstname(member.getFirstname());
-        response.setAddress(member.getAddress());
-        response.setZipcode(member.getZipcode());
-        response.setTelephone(member.getTelephone());
-        response.setJoindate(member.getJoinDate());
-
-        if (recomended) {
-            response.setRecommendedby(member.getRecommendedBy().getMemberId());
-        }
-
-        return response;
+        return MemberResponseDTO.toDto(member);
     }
 }
