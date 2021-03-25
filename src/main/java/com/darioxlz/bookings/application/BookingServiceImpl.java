@@ -54,8 +54,6 @@ public class BookingServiceImpl implements IBookingService {
         Optional<Facility> facility = facilityRepository.findById(dto.getFacid());
 
         if (member.isPresent() && facility.isPresent()) {
-//            booking.setMember(member.get());
-//            booking.setFacility(facility.get());
             booking.setFacilityId(facility.get().getFacilityId());
             booking.setMemberId(member.get().getMemberId());
             booking.setSlots(dto.getSlots());

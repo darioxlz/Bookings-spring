@@ -5,6 +5,7 @@ import com.darioxlz.bookings.application.port.output.crud.IMemberCrudRepository;
 import com.darioxlz.bookings.domain.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,5 +32,11 @@ public class MemberRepositoryImpl implements IMemberRepository {
     @Override
     public Member save(Member member) {
         return repository.save(member);
+    }
+
+    @Override
+    @Transactional
+    public Member deleteByMemberId(int memberId) {
+        return repository.deleteByMemberId(memberId);
     }
 }

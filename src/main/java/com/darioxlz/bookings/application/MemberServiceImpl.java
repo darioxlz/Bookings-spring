@@ -8,7 +8,6 @@ import com.darioxlz.bookings.domain.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -60,5 +59,42 @@ public class MemberServiceImpl implements IMemberService {
         member = repository.save(member);
 
         return MemberResponseDTO.toDto(member);
+    }
+
+    @Override
+    public MemberResponseDTO update(int id, MemberRequestDTO dto) {
+        Optional<Member> member = repository.findByID(id);
+
+        if (member.isPresent()) {
+            Member entity = member.get();
+
+            if (dto.getSurname() != null) entity.setSurname(dto.getSurname());
+            if (dto.getFirstname() != null) entity.setFirstname(dto.getFirstname());
+            if (dto.getAddress() != null) entity.setAddress(dto.getAddress());
+            if (dto.getTelephone() != null) entity.setTelephone(dto.getTelephone());
+            if (dto.getZipcode() != null) entity.setZipcode(dto.getZipcode());
+
+            if (dto.getRecommendedby() != null) {
+                Optional<Member> recommender = repository.findByID(dto.getRecommendedby());
+                if (recommender.isPresent()) entity.setRecommendedBy(recommender.get());
+            }
+
+            entity = repository.save(entity);
+
+            return MemberResponseDTO.toDto(entity);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public MemberResponseDTO delete(int id) {
+        Optional<Member> member = repository.findByID(id);
+
+        if (member.isPresent()) {
+            return MemberResponseDTO.toDto(repository.deleteByMemberId(id));
+        } else {
+            return null;
+        }
     }
 }

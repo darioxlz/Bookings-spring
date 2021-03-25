@@ -11,4 +11,6 @@ public interface IMemberRepository {
     Optional<Member> findByID(int memberId);
 
     Member save(Member member);
+
+    Member deleteByMemberId(int memberId);
 }

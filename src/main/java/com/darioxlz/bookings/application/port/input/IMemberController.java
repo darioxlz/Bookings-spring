@@ -15,4 +15,8 @@ public interface IMemberController {
     ResponseEntity<MemberResponseDTO> findById(@PathVariable("id") int id);
 
     ResponseEntity<MemberResponseDTO> save(@RequestBody @Valid MemberRequestDTO dto);
+
+    ResponseEntity<MemberResponseDTO> update(@PathVariable("id") int id, @RequestBody @Valid MemberRequestDTO dto);
+
+    ResponseEntity<MemberResponseDTO> delete(@PathVariable("id") int id);
 }

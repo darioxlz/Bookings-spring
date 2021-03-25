@@ -4,6 +4,7 @@ import com.darioxlz.bookings.application.dto.in.MemberRequestDTO;
 import com.darioxlz.bookings.application.dto.out.MemberResponseDTO;
 import com.darioxlz.bookings.application.port.input.IMemberController;
 import com.darioxlz.bookings.application.port.interactor.IMemberService;
+import com.darioxlz.bookings.domain.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +39,23 @@ public class MemberControllerImpl implements IMemberController {
     @Override
     public ResponseEntity<MemberResponseDTO> save(@Valid @RequestBody MemberRequestDTO dto) {
         return new ResponseEntity<>(service.save(dto), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    @Override
+    public ResponseEntity<MemberResponseDTO> update(@PathVariable("id") int id, @Valid MemberRequestDTO dto) {
+        return new ResponseEntity<>(service.update(id, dto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    @Override
+    public ResponseEntity<MemberResponseDTO> delete(@PathVariable("id") int id) {
+        MemberResponseDTO responseDTO = service.delete(id);
+
+        if (responseDTO != null) {
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
     }
 }
