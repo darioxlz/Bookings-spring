@@ -12,4 +12,8 @@ public interface IFacilityService {
     Optional<FacilityResponseDTO> findById(int id);
 
     FacilityResponseDTO save(FacilityRequestDTO dto);
+
+    FacilityResponseDTO update(int id, FacilityRequestDTO dto);
+
+    FacilityResponseDTO delete(int id);
 }

@@ -15,4 +15,8 @@ public interface IBookingController {
     ResponseEntity<BookingResponseDTO> findById(@PathVariable("id") int id);
 
     ResponseEntity<BookingResponseDTO> save(@RequestBody @Valid BookingRequestDTO dto);
+
+    ResponseEntity<BookingResponseDTO> update(@PathVariable("id") int id, @RequestBody @Valid BookingRequestDTO dto);
+
+    ResponseEntity<BookingResponseDTO> delete(@PathVariable("id") int id);
 }

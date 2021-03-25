@@ -47,7 +47,7 @@ public class Member {
     @Column(name = "joindate", updatable = false, nullable = false)
     private LocalDateTime joinDate;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "member")
     private List<Booking> bookings;
 
     public Integer getMemberId() {

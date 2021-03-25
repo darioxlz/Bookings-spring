@@ -68,4 +68,51 @@ public class BookingServiceImpl implements IBookingService {
             return null;
         }
     }
+
+    @Override
+    public BookingResponseDTO update(int id, BookingRequestDTO dto) {
+        Optional<Booking> booking = repository.findById(id);
+
+        if (booking.isPresent()) {
+            Booking entity = booking.get();
+
+            if (dto.getSlots() != null) entity.setSlots(dto.getSlots());
+            if (dto.getStarttime() != null) entity.setStartTime(dto.getStarttime());
+
+            if (dto.getFacid() != null) {
+                Optional<Facility> facility = facilityRepository.findById(dto.getFacid());
+
+                if (facility.isPresent()) {
+                    entity.setFacilityId(facility.get().getFacilityId());
+                }
+            }
+
+            if (dto.getMemid() != null) {
+                Optional<Member> member = memberRepository.findByID(dto.getMemid());
+
+                if (member.isPresent()) {
+                    entity.setMemberId(member.get().getMemberId());
+                }
+            }
+
+            entity = repository.save(entity);
+
+            return BookingResponseDTO.toDTO(entity);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public BookingResponseDTO delete(int id) {
+        Optional<Booking> booking = repository.findById(id);
+
+        if (booking.isPresent()) {
+            repository.deleteByBookingId(id);
+
+            return BookingResponseDTO.toDTO(booking.get());
+        } else {
+            return null;
+        }
+    }
 }

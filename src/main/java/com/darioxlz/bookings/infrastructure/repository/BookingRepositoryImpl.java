@@ -5,6 +5,7 @@ import com.darioxlz.bookings.application.port.output.crud.IBookingCrudRepository
 import com.darioxlz.bookings.domain.entity.Booking;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,5 +32,11 @@ public class BookingRepositoryImpl implements IBookingRepository {
     @Override
     public Booking save(Booking booking) {
         return repository.save(booking);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByBookingId(int bookingId) {
+        repository.deleteByBookingId(bookingId);
     }
 }

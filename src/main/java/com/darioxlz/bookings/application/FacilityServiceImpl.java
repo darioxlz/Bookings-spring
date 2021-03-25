@@ -47,4 +47,38 @@ public class FacilityServiceImpl implements IFacilityService {
 
         return FacilityResponseDTO.toDTO(facility);
     }
+
+    @Override
+    public FacilityResponseDTO update(int id, FacilityRequestDTO dto) {
+        Optional<Facility> facility = repository.findById(id);
+
+        if (facility.isPresent()) {
+            Facility entity = facility.get();
+
+            if (dto.getName() != null) entity.setName(dto.getName());
+            if (dto.getGuestcost() != null) entity.setGuestCost(dto.getGuestcost());
+            if (dto.getMembercost() != null) entity.setMemberCost(dto.getMembercost());
+            if (dto.getInitialoutlay() != null) entity.setInitialOutlay(dto.getInitialoutlay());
+            if (dto.getMonthlymaintenance() != null) entity.setMonthlyMaintenance(dto.getMonthlymaintenance());
+
+            entity = repository.save(entity);
+
+            return FacilityResponseDTO.toDTO(entity);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public FacilityResponseDTO delete(int id) {
+        Optional<Facility> facility = repository.findById(id);
+
+        if (facility.isPresent()) {
+            repository.deleteByFacilityId(id);
+
+            return FacilityResponseDTO.toDTO(facility.get());
+        } else {
+            return null;
+        }
+    }
 }

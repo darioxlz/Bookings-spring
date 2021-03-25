@@ -12,4 +12,8 @@ public interface IBookingService {
     Optional<BookingResponseDTO> findById(int id);
 
     BookingResponseDTO save(BookingRequestDTO dto);
+
+    BookingResponseDTO update(int id, BookingRequestDTO dto);
+
+    BookingResponseDTO delete(int id);
 }

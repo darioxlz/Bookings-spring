@@ -1,11 +1,12 @@
 package com.darioxlz.bookings.application.dto.out;
 
-import com.darioxlz.bookings.application.dto.in.BookingRequestDTO;
 import com.darioxlz.bookings.domain.entity.Booking;
 
 import java.time.LocalDateTime;
 
 public class BookingResponseDTO {
+    private Integer bookid;
+
     private LocalDateTime starttime;
 
     private Integer slots;
@@ -17,6 +18,7 @@ public class BookingResponseDTO {
     public static BookingResponseDTO toDTO(Booking booking) {
         BookingResponseDTO dto = new BookingResponseDTO();
 
+        dto.setBookid(booking.getBookingId());
         dto.setMemid(booking.getMemberId());
         dto.setFacid(booking.getFacilityId());
         dto.setSlots(booking.getSlots());
@@ -61,5 +63,13 @@ public class BookingResponseDTO {
 
     public void setMemid(Integer memid) {
         this.memid = memid;
+    }
+
+    public Integer getBookid() {
+        return bookid;
+    }
+
+    public void setBookid(Integer bookid) {
+        this.bookid = bookid;
     }
 }

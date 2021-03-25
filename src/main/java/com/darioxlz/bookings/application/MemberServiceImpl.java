@@ -92,7 +92,16 @@ public class MemberServiceImpl implements IMemberService {
         Optional<Member> member = repository.findByID(id);
 
         if (member.isPresent()) {
-            return MemberResponseDTO.toDto(repository.deleteByMemberId(id));
+            List<Member> recommendedMembers = repository.findByRecommendedBy(id);
+
+            for (Member member1 : recommendedMembers) {
+                member1.setRecommendedBy(null);
+                repository.save(member1);
+            }
+
+            repository.deleteByMemberId(id);
+
+            return MemberResponseDTO.toDto(member.get());
         } else {
             return null;
         }

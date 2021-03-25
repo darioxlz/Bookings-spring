@@ -11,4 +11,6 @@ public interface IBookingRepository {
     Optional<Booking> findById(int bookingId);
 
     Booking save(Booking booking);
+
+    void deleteByBookingId(int bookingId);
 }

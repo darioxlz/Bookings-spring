@@ -8,9 +8,11 @@ import java.util.Optional;
 public interface IMemberRepository {
     List<Member> find();
 
+    List<Member> findByRecommendedBy(int memberId);
+
     Optional<Member> findByID(int memberId);
 
     Member save(Member member);
 
-    Member deleteByMemberId(int memberId);
+    void deleteByMemberId(int memberId);
 }

@@ -37,7 +37,7 @@ public class Facility {
     @Column(name = "monthlymaintenance", nullable = false)
     private Double monthlyMaintenance;
 
-    @OneToMany(mappedBy = "facility")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facility")
     private List<Booking> bookings;
 
     public Integer getFacilityId() {

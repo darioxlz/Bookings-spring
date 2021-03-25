@@ -15,4 +15,8 @@ public interface IFacilityController {
     ResponseEntity<FacilityResponseDTO> findById(@PathVariable("id") int id);
 
     ResponseEntity<FacilityResponseDTO> save(@RequestBody @Valid FacilityRequestDTO dto);
+
+    ResponseEntity<FacilityResponseDTO> update(@PathVariable("id") int id, @RequestBody @Valid FacilityRequestDTO dto);
+
+    ResponseEntity<FacilityResponseDTO> delete(@PathVariable("id") int id);
 }

@@ -25,6 +25,11 @@ public class MemberRepositoryImpl implements IMemberRepository {
     }
 
     @Override
+    public List<Member> findByRecommendedBy(int memberId) {
+        return repository.findAllByRecommendedBy(memberId);
+    }
+
+    @Override
     public Optional<Member> findByID(int memberId) {
         return repository.findById(memberId);
     }
@@ -36,7 +41,7 @@ public class MemberRepositoryImpl implements IMemberRepository {
 
     @Override
     @Transactional
-    public Member deleteByMemberId(int memberId) {
-        return repository.deleteByMemberId(memberId);
+    public void deleteByMemberId(int memberId) {
+        repository.deleteByMemberId(memberId);
     }
 }

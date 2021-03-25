@@ -11,4 +11,6 @@ public interface IFacilityRepository {
     Optional<Facility> findById(int facilityId);
 
     Facility save(Facility facility);
+
+    void deleteByFacilityId(int facilityId);
 }

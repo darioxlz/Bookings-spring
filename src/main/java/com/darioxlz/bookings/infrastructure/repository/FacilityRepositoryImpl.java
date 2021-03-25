@@ -5,6 +5,7 @@ import com.darioxlz.bookings.application.port.output.crud.IFacilityCrudRepositor
 import com.darioxlz.bookings.domain.entity.Facility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,5 +32,11 @@ public class FacilityRepositoryImpl implements IFacilityRepository {
     @Override
     public Facility save(Facility facility) {
         return repository.save(facility);
+    }
+
+    @Override
+    @Transactional
+    public void deleteByFacilityId(int facilityId) {
+        repository.deleteByFacilityId(facilityId);
     }
 }
