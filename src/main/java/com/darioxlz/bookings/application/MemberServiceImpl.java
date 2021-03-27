@@ -6,6 +6,7 @@ import com.darioxlz.bookings.application.port.interactor.IMemberService;
 import com.darioxlz.bookings.application.port.output.IMemberRepository;
 import com.darioxlz.bookings.domain.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,24 +38,15 @@ public class MemberServiceImpl implements IMemberService {
 
             return Optional.of(response);
         } else {
-            return Optional.empty();
+            throw new ApplicationException("No member has been found with this ID!", HttpStatus.NOT_FOUND);
         }
     }
 
     @Override
     public MemberResponseDTO save(MemberRequestDTO dto) {
         Member member = MemberResponseDTO.toMember(dto);
-        boolean recomended = false;
 
-        if (dto.getRecommendedby() != null) {
-            Optional<Member> recommender = repository.findByID(dto.getRecommendedby());
-
-            if (recommender.isPresent()) {
-                member.setRecommendedBy(recommender.get());
-                recomended = true;
-            }
-        }
-
+        checkRecommendedByExistsThenSet(dto, member);
 
         member = repository.save(member);
 
@@ -74,16 +66,13 @@ public class MemberServiceImpl implements IMemberService {
             if (dto.getTelephone() != null) entity.setTelephone(dto.getTelephone());
             if (dto.getZipcode() != null) entity.setZipcode(dto.getZipcode());
 
-            if (dto.getRecommendedby() != null) {
-                Optional<Member> recommender = repository.findByID(dto.getRecommendedby());
-                if (recommender.isPresent()) entity.setRecommendedBy(recommender.get());
-            }
+            checkRecommendedByExistsThenSet(dto, entity);
 
             entity = repository.save(entity);
 
             return MemberResponseDTO.toDto(entity);
         } else {
-            return null;
+            throw new ApplicationException("No member has been found with this ID!", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -103,7 +92,16 @@ public class MemberServiceImpl implements IMemberService {
 
             return MemberResponseDTO.toDto(member.get());
         } else {
-            return null;
+            throw new ApplicationException("No member has been found with this ID!", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    private void checkRecommendedByExistsThenSet(MemberRequestDTO dto, Member entity) {
+        if (dto.getRecommendedby() != null) {
+            Optional<Member> recommender = repository.findByID(dto.getRecommendedby());
+            if (recommender.isPresent()) entity.setRecommendedBy(recommender.get());
+            else
+                throw new ApplicationException("No member has been found with this recommendedby ID!", HttpStatus.NOT_FOUND);
         }
     }
 }

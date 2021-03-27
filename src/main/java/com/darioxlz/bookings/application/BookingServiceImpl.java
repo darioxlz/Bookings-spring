@@ -10,6 +10,7 @@ import com.darioxlz.bookings.domain.entity.Booking;
 import com.darioxlz.bookings.domain.entity.Facility;
 import com.darioxlz.bookings.domain.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class BookingServiceImpl implements IBookingService {
 
             return Optional.of(responseDTO);
         } else {
-            return Optional.empty();
+            throw new ApplicationException("No member has been found with this ID!", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -65,7 +66,7 @@ public class BookingServiceImpl implements IBookingService {
 
             return BookingResponseDTO.toDTO(booking);
         } else {
-            return null;
+            throw new ApplicationException("No member/facility has been found with the given ID's!", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -84,6 +85,8 @@ public class BookingServiceImpl implements IBookingService {
 
                 if (facility.isPresent()) {
                     entity.setFacilityId(facility.get().getFacilityId());
+                } else {
+                    throw new ApplicationException("No facility has been found with this ID!", HttpStatus.NOT_FOUND);
                 }
             }
 
@@ -92,6 +95,8 @@ public class BookingServiceImpl implements IBookingService {
 
                 if (member.isPresent()) {
                     entity.setMemberId(member.get().getMemberId());
+                } else {
+                    throw new ApplicationException("No member has been found with this ID!", HttpStatus.NOT_FOUND);
                 }
             }
 
@@ -99,7 +104,7 @@ public class BookingServiceImpl implements IBookingService {
 
             return BookingResponseDTO.toDTO(entity);
         } else {
-            return null;
+            throw new ApplicationException("No booking has been found with this ID!", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -112,7 +117,7 @@ public class BookingServiceImpl implements IBookingService {
 
             return BookingResponseDTO.toDTO(booking.get());
         } else {
-            return null;
+            throw new ApplicationException("No booking has been found with this ID!", HttpStatus.NOT_FOUND);
         }
     }
 }

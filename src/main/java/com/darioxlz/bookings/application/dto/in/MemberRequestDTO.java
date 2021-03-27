@@ -1,33 +1,28 @@
 package com.darioxlz.bookings.application.dto.in;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class MemberRequestDTO {
-    @NotNull(message = "The member surname cannot be null.")
-    @NotBlank(message = "The member surname cannot be blank.")
+    @NotNull(message = "The member surname must not be null.")
     @Size(min = 3, max = 50, message = "The member surname must contain between 3 and 50 characters.")
     private String surname;
 
-    @NotNull(message = "The member firstname cannot be null.")
-    @NotBlank(message = "The member firstname cannot be blank.")
+    @NotNull(message = "The member firstname must not be null.")
     @Size(min = 3, max = 50, message = "The member firstname must contain between 3 and 50 characters.")
     private String firstname;
 
-    @NotNull(message = "The member address cannot be null.")
-    @NotBlank(message = "The member address cannot be blank.")
+    @NotNull(message = "The member address must not be null.")
     @Size(min = 3, max = 50, message = "The member address must contain between 3 and 50 characters.")
     private String address;
 
-    // TODO implement my own annotation
+    @NotNull(message = "The member zipcode must not be null.")
     @Positive(message = "The member zipcode must be a positive integer")
     private Integer zipcode;
 
-    @NotNull(message = "The member telephone number cannot be null.")
-    @NotBlank(message = "The member telephone number cannot be blank.")
+    @NotNull(message = "The member telephone number must not be null.")
     @Size(min = 3, max = 50, message = "The member telephone number must contain between 3 and 15 characters.")
     private String telephone;
 

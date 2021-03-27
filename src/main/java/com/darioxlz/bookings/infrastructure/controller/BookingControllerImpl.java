@@ -2,10 +2,8 @@ package com.darioxlz.bookings.infrastructure.controller;
 
 import com.darioxlz.bookings.application.dto.in.BookingRequestDTO;
 import com.darioxlz.bookings.application.dto.out.BookingResponseDTO;
-import com.darioxlz.bookings.application.dto.out.FacilityResponseDTO;
 import com.darioxlz.bookings.application.port.input.IBookingController;
 import com.darioxlz.bookings.application.port.interactor.IBookingService;
-import com.darioxlz.bookings.infrastructure.controller.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,10 +51,6 @@ public class BookingControllerImpl implements IBookingController {
     public ResponseEntity<BookingResponseDTO> delete(@PathVariable("id") int id) {
         BookingResponseDTO responseDTO = service.delete(id);
 
-        if (responseDTO != null) {
-            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
-        } else {
-            throw new ResourceNotFoundException("No booking with id " + id);
-        }
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 }

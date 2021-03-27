@@ -6,6 +6,7 @@ import com.darioxlz.bookings.application.port.interactor.IFacilityService;
 import com.darioxlz.bookings.application.port.output.IFacilityRepository;
 import com.darioxlz.bookings.domain.entity.Facility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class FacilityServiceImpl implements IFacilityService {
 
             return Optional.of(response);
         } else {
-            return Optional.empty();
+            throw new ApplicationException("No facility has been found with this ID!", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -65,7 +66,7 @@ public class FacilityServiceImpl implements IFacilityService {
 
             return FacilityResponseDTO.toDTO(entity);
         } else {
-            return null;
+            throw new ApplicationException("No facility has been found with this ID!", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -78,7 +79,7 @@ public class FacilityServiceImpl implements IFacilityService {
 
             return FacilityResponseDTO.toDTO(facility.get());
         } else {
-            return null;
+            throw new ApplicationException("No facility has been found with this ID!", HttpStatus.NOT_FOUND);
         }
     }
 }
